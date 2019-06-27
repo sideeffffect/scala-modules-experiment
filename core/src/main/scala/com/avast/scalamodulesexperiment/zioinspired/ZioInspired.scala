@@ -85,6 +85,7 @@ object Tests {
 
   trait TestConsoleWriter extends ConsoleWriter[Id] {
     // YOLO (and this is just a test anyway...)
+    @SuppressWarnings(Array("org.wartremover.warts.Var"))
     var output = "" // scalastyle:off
 
     val consoleWriter: ConsoleWriter.Service[Id] = new ConsoleWriter.Service[Id] {
