@@ -1,6 +1,6 @@
 # Scala-modules-experiment
 
-[![Build Status](https://travis-ci.com/sideeffffect/scala-modules-experiment.svg?branch=master)](https://travis-ci.com/sideeffffect/scala-modules-experiment)
+[![Build Status](https://travis-ci.org/sideeffffect/scala-modules-experiment.svg?branch=master)](https://travis-ci.org/sideeffffect/scala-modules-experiment)
 [![codecov](https://codecov.io/gh/sideeffffect/scala-modules-experiment/branch/master/graphs/badge.svg)](https://codecov.io/gh/sideeffffect/scala-modules-experiment)
 
 Scala Modules Experiment
