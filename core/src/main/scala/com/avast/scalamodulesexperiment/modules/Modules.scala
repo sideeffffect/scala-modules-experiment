@@ -55,9 +55,11 @@ object Modules {
   }
 
   object Main {
-    def run[F[_]: Monad](consoleWriter: ConsoleWriter[F],
-                         consoleReader: ConsoleReader[F],
-                         greeter: Greeter[F]): F[Unit] =
+    def run[F[_]: Monad](
+        consoleWriter: ConsoleWriter[F],
+        consoleReader: ConsoleReader[F],
+        greeter: Greeter[F]
+    ): F[Unit] =
       for {
         () <- consoleWriter.writeString("vots jor nejm?\n")
         name <- consoleReader.readLine
