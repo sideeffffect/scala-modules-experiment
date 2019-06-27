@@ -1,0 +1,50 @@
+sudo: required
+
+language: scala
+
+scala:
+  - 2.11.12
+  - 2.12.8
+  - 2.13.0-RC3
+
+jdk:
+  - openjdk8
+  - openjdk11
+
+install:
+  - pip install --user codecov
+
+stages:
+  - name: cov
+  - name: fmt
+  - name: build
+
+jobs:
+  include:
+    - &cov
+      stage: cov
+      name: "cov"
+      script: sbt ++$TRAVIS_SCALA_VERSION clean coverage test coverageReport && codecov
+      after_success: bash <(curl -s https://codecov.io/bash)
+
+    - &fmt
+      stage: fmt
+      name: "fmt"
+      script: sbt ++$TRAVIS_SCALA_VERSION scalafmtCheck test:scalafmtCheck scalafmtSbtCheck undeclaredCompileDependenciesTest
+
+    - &build
+      stage: build
+      name: "build"
+      script: sbt ++$TRAVIS_SCALA_VERSION clean test
+
+cache:
+  directories:
+    - $HOME/.ivy2/cache
+    - $HOME/.sbt/boot/
+
+before_cache:
+  - du -h -d 1 $HOME/.ivy2/
+  - du -h -d 2 $HOME/.sbt/
+  - find $HOME/.ivy2 -name "ivydata-*.properties" -type f -delete
+  - find $HOME/.sbt -name "*.lock" -delete
+  - rm -rf $HOME/.ivy2/local
