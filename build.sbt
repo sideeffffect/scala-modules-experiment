@@ -4,7 +4,7 @@ name := """scala-modules-experiment"""
 
 organization in ThisBuild := "com.avast"
 
-crossScalaVersions in ThisBuild := Seq(scalaVersion.value, "2.13.0")
+crossScalaVersions in ThisBuild := Seq(scalaVersion.value)
 
 lazy val warts = Warts.allBut(
   Wart.Any,
