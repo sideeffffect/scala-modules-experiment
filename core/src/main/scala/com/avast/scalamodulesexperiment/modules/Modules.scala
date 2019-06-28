@@ -44,21 +44,22 @@ object Modules {
   }
 
   object ConsoleGreeter {
-    def create[F[_]: Monad](consoleWriter: ConsoleWriter[F]): Greeter[F] = new Greeter[F] {
-      override def greet(name: String): F[Unit] =
-        for {
-          () <- consoleWriter.writeString("hello ")
-          () <- consoleWriter.writeString(name)
-          () <- consoleWriter.writeChar('\n')
-        } yield ()
-    }
+    def create[F[_]: Monad](consoleWriter: ConsoleWriter[F]): Greeter[F] =
+      new Greeter[F] {
+        override def greet(name: String): F[Unit] =
+          for {
+            () <- consoleWriter.writeString("hello ")
+            () <- consoleWriter.writeString(name)
+            () <- consoleWriter.writeChar('\n')
+          } yield ()
+      }
   }
 
   object Main {
     def run[F[_]: Monad](
         consoleWriter: ConsoleWriter[F],
         consoleReader: ConsoleReader[F],
-        greeter: Greeter[F]
+        greeter: Greeter[F],
     ): F[Unit] =
       for {
         () <- consoleWriter.writeString("vots jor nejm?\n")
@@ -114,7 +115,8 @@ object App extends monix.eval.TaskApp {
     () <- Main.run(monixConsoleWriter, reader, monixGreeter)
   } yield ()
 
-  override def run(args: List[String]): Task[ExitCode] = task >> Task.now(ExitCode.Success)
+  override def run(args: List[String]): Task[ExitCode] =
+    task >> Task.now(ExitCode.Success)
 }
 
 object EffectModules {
@@ -125,10 +127,11 @@ object EffectModules {
   import cats.implicits._
 
   object EffectConsoleWriter {
-    def create[F[_]]()(implicit F: Sync[F]): ConsoleWriter[F] = new ConsoleWriter[F] {
-      def writeString(s: String): F[Unit] = F.delay { print(s) }
-      def writeChar(c: Char): F[Unit]     = F.delay { print(c) }
-    }
+    def create[F[_]]()(implicit F: Sync[F]): ConsoleWriter[F] =
+      new ConsoleWriter[F] {
+        def writeString(s: String): F[Unit] = F.delay { print(s) }
+        def writeChar(c: Char): F[Unit]     = F.delay { print(c) }
+      }
   }
 
   object EffectConsoleReader {
@@ -165,5 +168,6 @@ object EffectMain extends monix.eval.TaskApp {
     }
   }
 
-  override def run(args: List[String]): Task[ExitCode] = task >> Task.now(ExitCode.Success)
+  override def run(args: List[String]): Task[ExitCode] =
+    task >> Task.now(ExitCode.Success)
 }
