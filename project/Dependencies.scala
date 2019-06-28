@@ -3,7 +3,7 @@ import sbt._
 object Dependencies {
 
   object Versions {
-    val cats       = "1.5.0"
+    val cats       = "1.6.0"
     val catsEffect = "1.3.1"
     val monix      = "3.0.0-RC2"
 
@@ -18,8 +18,9 @@ object Dependencies {
 
   object Libraries {
     lazy val cats       = "org.typelevel" %% "cats-core"   % Versions.cats
+    lazy val catsKernel = "org.typelevel" %% "cats-kernel" % Versions.cats
     lazy val catsEffect = "org.typelevel" %% "cats-effect" % Versions.catsEffect
-    lazy val monix      = "io.monix"      %% "monix"       % Versions.monix
+    lazy val monixEval  = "io.monix"      %% "monix-eval"  % Versions.monix
 
     // Test
     lazy val scalaTest  = "org.scalatest"  %% "scalatest"  % Versions.scalaTest

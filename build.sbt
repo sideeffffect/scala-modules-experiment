@@ -16,7 +16,7 @@ lazy val warts = Warts.allBut(
   Wart.NonUnitStatements,
   Wart.ImplicitConversion,
   Wart.PublicInference,
-  Wart.ImplicitParameter
+  Wart.ImplicitParameter,
 )
 
 lazy val commonSettings = Seq(
@@ -25,18 +25,19 @@ lazy val commonSettings = Seq(
   wartremoverErrors in (Test, compile) := warts,
   libraryDependencies ++= Seq(
     Libraries.cats,
+    Libraries.catsKernel,
     Libraries.catsEffect,
-    Libraries.monix,
+    Libraries.monixEval,
     Libraries.scalaTest  % Test,
     Libraries.scalaCheck % Test,
     compilerPlugin(Libraries.kindProjector),
-    compilerPlugin(Libraries.betterMonadicFor)
-  )
+    compilerPlugin(Libraries.betterMonadicFor),
+  ),
 )
 
 lazy val testSettings = Seq(
   fork in Test := true,
-  parallelExecution in Test := false
+  parallelExecution in Test := false,
 )
 
 lazy val `scala-modules-experiment-root` =

@@ -30,7 +30,7 @@ jobs:
     - &fmt
       stage: fmt
       name: "fmt"
-      script: sbt ++$TRAVIS_SCALA_VERSION scalafmtCheck test:scalafmtCheck scalafmtSbtCheck undeclaredCompileDependenciesTest
+      script: sbt ++$TRAVIS_SCALA_VERSION scalafmtCheck test:scalafmtCheck scalafmtSbtCheck undeclaredCompileDependenciesTest unusedCompileDependenciesTest
 
     - &build
       stage: build
