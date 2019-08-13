@@ -28,6 +28,8 @@ lazy val commonSettings = Seq(
     Libraries.catsKernel,
     Libraries.catsEffect,
     Libraries.monixEval,
+    Libraries.logback,
+    Libraries.scalaLogging,
     Libraries.scalaTest  % Test,
     Libraries.scalaCheck % Test,
     compilerPlugin(Libraries.kindProjector),

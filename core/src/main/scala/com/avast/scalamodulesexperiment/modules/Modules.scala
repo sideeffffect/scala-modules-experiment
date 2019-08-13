@@ -1,5 +1,7 @@
 package com.avast.scalamodulesexperiment.modules
 
+import com.typesafe.scalalogging.StrictLogging
+
 import scala.language.higherKinds
 
 object Signatures {
@@ -25,11 +27,14 @@ object Modules {
   import cats.implicits._
   import monix.eval.Task
 
-  object MonixConsoleWriter {
-    def create(): ConsoleWriter[Task] = new ConsoleWriter[Task] {
-      def writeString(s: String): Task[Unit] = Task.delay { print(s) }
-      def writeChar(c: Char): Task[Unit]     = Task.delay { print(c) }
-    }
+  object MonixConsoleWriter extends StrictLogging {
+    def create(): ConsoleWriter[Task] =
+      new ConsoleWriter[Task] {
+        def writeString(s: String): Task[Unit] = Task.delay {
+          logger.info("from MonixConsoleWriter"); print(s)
+        }
+        def writeChar(c: Char): Task[Unit] = Task.delay { print(c) }
+      }
   }
 
   object MonixConsoleReader {
